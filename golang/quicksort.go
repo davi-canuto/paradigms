@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(quickSortStart([]int{5, 6, 7, 2, 1, 0}))
 }
 
-func partition(arr []int, low, high int) ([]int, int) {
+func partition(arr []int, low int, high int) ([]int, int) {
 	pivot := arr[high]
 	i := low
 	for j := low; j < high; j++ {
@@ -21,7 +21,7 @@ func partition(arr []int, low, high int) ([]int, int) {
 	return arr, i
 }
 
-func quickSort(arr []int, low, high int) []int {
+func quickSort(arr []int, low int, high int) []int {
 	if low < high {
 		var p int
 		arr, p = partition(arr, low, high)
