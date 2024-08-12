@@ -2,27 +2,36 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func main() {
-	start := time.Now()
-	fmt.Println(fib(10))
-	fmt.Printf("Time taken for fib(10): %v\n", time.Since(start))
-
-	start = time.Now()
-	fmt.Println(fib(20))
-	fmt.Printf("Time taken for fib(20): %v\n", time.Since(start))
-
-	start = time.Now()
-	fmt.Println(fib(100))
-	fmt.Printf("Time taken for fib(100): %v\n", time.Since(start))
+	fmt.Println(quickSortStart([]int{5, 6, 7, 2, 1, 0}))
 }
 
-func fib(number int) int {
-	if number <= 1 {
-		return number
+func partition(arr []int, low, high int) ([]int, int) {
+	pivot := arr[high]
+	i := low
+	for j := low; j < high; j++ {
+		if arr[j] < pivot {
+			arr[i], arr[j] = arr[j], arr[i]
+			i++
+		}
 	}
-
-	return fib(number-1) + fib(number-2)
+	arr[i], arr[high] = arr[high], arr[i]
+	return arr, i
 }
+
+func quickSort(arr []int, low, high int) []int {
+	if low < high {
+		var p int
+		arr, p = partition(arr, low, high)
+		arr = quickSort(arr, low, p-1)
+		arr = quickSort(arr, p+1, high)
+	}
+	return arr
+}
+
+func quickSortStart(arr []int) []int {
+	return quickSort(arr, 0, len(arr)-1)
+}
+
